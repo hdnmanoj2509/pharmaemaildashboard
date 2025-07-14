@@ -1133,7 +1133,7 @@ function updateVoiceIcon() {
       }
     });
    
-const ESCALATION_API = 'http://192.168.68.109:5678/webhook/escalations';
+const ESCALATION_API = 'https://c3ae4d88a64d.ngrok-free.app/webhook/escalations';
 
 /* icon + badge helpers */
 function iconForSeverity(sev){
@@ -1238,7 +1238,7 @@ function renderEscalationCard(esc) {
 }
 
 /* ==========  Biz-Dev Recommendations feed  ========== */
-const RECOMMEND_API = 'https://192.168.68.109:5678/webhook/dashboard-recommendations';
+const RECOMMEND_API = 'https://c3ae4d88a64d.ngrok-free.app/webhook/dashboard-recommendations';
 
 /* Impact badge 1-10 */
 function impactBadge(score){
@@ -1544,7 +1544,7 @@ function renderFunnelCard({ id, title, metrics }) {
       const fullPrompt = prompt + (selectedChartType !== 'auto' ? ` using ${selectedChartType} chart` : '');
       
       try {
-        const res = await fetch('https://192.168.68.109:5678/webhook/f6e3c9bc-ebb5-463b-a29c-b8254e655c91', {
+        const res = await fetch('https://c3ae4d88a64d.ngrok-free.app/webhook/f6e3c9bc-ebb5-463b-a29c-b8254e655c91', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ prompt: fullPrompt })
@@ -1696,7 +1696,7 @@ function unwrapWordcloudPayload(raw) {
 }
 async function loadKeywordWordCloudCard() {
   try {
-    const res = await fetch('https://192.168.68.109:5678/webhook/api/wordcloud');
+    const res = await fetch('https://c3ae4d88a64d.ngrok-free.app/webhook/api/wordcloud');
     if (!res.ok) throw new Error(`API ${res.status}`);
     const raw   = await res.json();
     const words = unwrapWordcloudPayload(raw);          // [{name,value},…]
@@ -1776,7 +1776,7 @@ const heatColors = [
 /* Main loader */
 async function loadHourWeekdayHeatmapCard() {
   try {
-    const res = await fetch('https://192.168.68.109:5678/webhook/api/heatmap');
+    const res = await fetch('https://c3ae4d88a64d.ngrok-free.app/webhook/api/heatmap');
     if (!res.ok) throw new Error(`API ${res.status}`);
     const raw   = await res.json();
     const rows  = unwrapHeatPayload(raw);       // [{x,y,value},…]
@@ -1916,7 +1916,7 @@ function unwrapGaugePayload(raw) {
 
 /* core fetch-and-render */
 async function fetchAndRenderSLAGauge(firstRun = false, chartRef = null) {
-  const res  = await fetch('https://192.168.68.109:5678/webhook/api/gauge');      // 👈 path in Webhook node
+  const res  = await fetch('https://c3ae4d88a64d.ngrok-free.app/webhook/api/gauge');      // 👈 path in Webhook node
   if (!res.ok) throw new Error(`API ${res.status}`);
 
   const payload = unwrapGaugePayload(await res.json());
@@ -2041,7 +2041,7 @@ function decorateSunburst(data) {
 
 async function loadCategorySentimentSunburstCard() {
   try {
-    const res  = await fetch('https://192.168.68.109:5678/webhook/api/sunburst');
+    const res  = await fetch('https://c3ae4d88a64d.ngrok-free.app/webhook/api/sunburst');
     if (!res.ok) throw new Error(`API ${res.status}`);
     const raw   = await res.json();
     const data  = decorateSunburst(unwrapSunburstPayload(raw));
@@ -2126,7 +2126,7 @@ const catColors = [
 
 async function loadCategoryRoseBarCard(){
   try{
-    const res  = await fetch('https://192.168.68.109:5678/webhook/api/rose_bar');   // 👈 endpoint path
+    const res  = await fetch('https://c3ae4d88a64d.ngrok-free.app/webhook/api/rose_bar');   // 👈 endpoint path
     if(!res.ok) throw new Error(`API ${res.status}`);
     const data = unwrapCategoryRose(await res.json());        // [{name,value}]
 
@@ -2203,7 +2203,7 @@ const funnelCols = ['#fde68a','#fcd34d','#fb923c','#f87171'];
 
 async function loadTicketFunnelCard(){
   try{
-    const r = await fetch('https://192.168.68.109:5678/webhook/api/funnel');   // 👈 your path
+    const r = await fetch('https://c3ae4d88a64d.ngrok-free.app/webhook/api/funnel');   // 👈 your path
     if(!r.ok) throw Error(r.status);
     const data = unwrapFunnel(await r.json());             // [{name,value}]
 
@@ -2348,7 +2348,7 @@ function unwrapLongChainDurationPayload(raw) {
 }
 async function loadLongChainDurationChart() {
   try {
-    const res = await fetch('https://192.168.68.109:5678/webhook/api/area');
+    const res = await fetch('https://c3ae4d88a64d.ngrok-free.app/webhook/api/area');
     if (!res.ok) throw new Error(`API error ${res.status}`);
     const raw = await res.json();
     const data = unwrapLongChainDurationPayload(raw);
@@ -2434,7 +2434,7 @@ function unwrapProductSentimentPayload(raw) {
 }
 async function loadProductSentimentBarChart() {
   try {
-    const res = await fetch('https://192.168.68.109:5678/webhook/api/horizontal_bar');
+    const res = await fetch('https://c3ae4d88a64d.ngrok-free.app/webhook/api/horizontal_bar');
     if (!res.ok) throw new Error(`API ${res.status}`);
     const raw = await res.json();
     const data = unwrapProductSentimentPayload(raw);  // [{product, total, sentiments:[{sentiment,count},…]}]
@@ -2621,7 +2621,7 @@ function unwrapEmailTimelinePayload(raw) {
 
 async function loadEmailTimelineChart() {
   try {
-    const res = await fetch('https://192.168.68.109:5678/webhook/api/water_fall');
+    const res = await fetch('https://c3ae4d88a64d.ngrok-free.app/webhook/api/water_fall');
     if (!res.ok) throw new Error(`API ${res.status}`);
     const raw = await res.json();
     const data = unwrapEmailTimelinePayload(raw);  // [{timestamp, description}, ...]
@@ -2715,7 +2715,7 @@ function unwrapResponseBucketPayload(raw) {
 }
 async function loadResponseTimeBucketChart() {
   try {
-    const res = await fetch("https://192.168.68.109:5678/webhook/api/radar-urgency");
+    const res = await fetch("https://c3ae4d88a64d.ngrok-free.app//webhook/api/radar-urgency");
     if (!res.ok) throw new Error(`API ${res.status}`);
     const raw = await res.json();
     const data = unwrapResponseBucketPayload(raw);  // [{bucket,value}]
